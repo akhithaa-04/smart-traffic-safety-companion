@@ -1,0 +1,31 @@
+# Java / Maven
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Android
+*.apk
+.gradle/
+local.properties
+android-client/app/build/
+android-client/.gradle/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# H2 db files if run locally
+*.db
+*.trace.db
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Spring Boot local config
+application-local.properties
+application-local.yml

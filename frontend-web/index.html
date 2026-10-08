@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Traffic Safety Companion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" width="30" height="30" viewBox="0 0 30 30" fill="none">
+        <circle cx="15" cy="15" r="14" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M6 18.5C9 15 12.5 13 15 13s6 2 9 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="15" cy="13" r="2.1" fill="currentColor"/>
+      </svg>
+      <div>
+        <div class="brand-name">Smart Traffic Safety Companion</div>
+        <div class="brand-sub">your proactive travel companion</div>
+      </div>
+    </div>
+
+    <div id="logged-out-view" class="auth-inline">
+      <input id="login-email" placeholder="email">
+      <input id="login-password" type="password" placeholder="password">
+      <button class="btn-accent" onclick="login()">Log in</button>
+    </div>
+    <div id="logged-in-view" class="auth-inline hidden">
+      <div class="user-chip">
+        <span id="current-user-name"></span>
+        <span class="user-chip-divider"></span>
+        <span><strong id="current-user-points"></strong> pts</span>
+        <span class="user-chip-divider"></span>
+        <span>streak <strong id="current-user-streak"></strong></span>
+        <span class="user-chip-divider"></span>
+        <span id="current-user-vehicle"></span>
+      </div>
+      <button class="btn-ghost" onclick="logout()">Log out</button>
+    </div>
+  </header>
+
+  <p class="auth-hint">Demo accounts: asha@example.com &middot; vikram@example.com &middot; citizen@example.com — password123</p>
+
+  <main>
+
+    <!-- HERO: journey start + reminder, the core interaction -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Start driving.<br>We'll take it from here.</h1>
+        <p>Once your movement looks like a real drive, not a short walk, the companion
+           checks in with a quick, personal safety reminder before anything else.</p>
+        <div class="hero-controls">
+          <label class="toggle"><input type="checkbox" id="raining"> Raining</label>
+          <label class="toggle"><input type="checkbox" id="night"> Night time</label>
+          <button class="btn-accent btn-lg" onclick="startJourney()">Begin journey</button>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="hero-panel-label">Live status</div>
+        <div id="safety-color-box" class="status-slot">
+          <button class="btn-ghost btn-sm" onclick="checkSafetyColor()">Check road status</button>
+        </div>
+        <div id="reminder-box" class="reminder-box hidden"></div>
+        <div id="active-journey-box" class="hidden journey-actions">
+          <button class="btn-accent btn-sm" onclick="confirmSafetyCheck()">Got it</button>
+          <button class="btn-ghost btn-sm" onclick="endJourney()">End journey</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid">
+
+      <section class="card accent-amber">
+        <h2>Report something on the road</h2>
+        <p class="card-desc">Anyone can share this, journey or not, an accident, a procession, a fallen tree, anything worth knowing.</p>
+        <div class="form-grid">
+          <select id="report-type">
+            <option value="ACCIDENT">Accident</option>
+            <option value="ROAD_CONSTRUCTION">Road construction</option>
+            <option value="WATERLOGGING">Waterlogging</option>
+            <option value="FESTIVAL_OR_PROCESSION">Festival / procession</option>
+            <option value="FALLEN_TREE">Fallen tree</option>
+            <option value="ROAD_BLOCKAGE">Road blockage</option>
+            <option value="HEAVY_CONGESTION">Heavy congestion</option>
+            <option value="OTHER">Other</option>
+          </select>
+          <input id="report-desc" placeholder="What's happening?">
+          <div class="form-row-2">
+            <input id="report-cause" placeholder="Cause">
+            <input id="report-duration" type="number" placeholder="Minutes">
+          </div>
+          <input id="report-alt-route" placeholder="Suggested alternate route">
+          <button class="btn-accent" onclick="submitReport()">Submit report</button>
+        </div>
+      </section>
+
+      <section class="card accent-blue">
+        <div class="card-head-row">
+          <h2>Active reports nearby</h2>
+          <button class="btn-ghost btn-sm" onclick="loadReports()">Refresh</button>
+        </div>
+        <div id="reports-list"></div>
+      </section>
+
+      <section class="card accent-green">
+        <div class="card-head-row">
+          <h2>Badges earned</h2>
+          <button class="btn-ghost btn-sm" onclick="loadBadges()">Refresh</button>
+        </div>
+        <div id="badges-list"></div>
+      </section>
+
+      <section class="card accent-violet">
+        <h2>Journey echoes</h2>
+        <p class="card-desc">Save a place, then return to it later and the companion will remember it with you.</p>
+        <div class="form-grid">
+          <input id="memory-place" placeholder="Place name, e.g. Golconda Fort">
+          <input id="memory-note" placeholder="A note about this visit">
+          <div class="form-row-2">
+            <button class="btn-accent btn-sm" onclick="saveMemory()">Save here</button>
+            <button class="btn-ghost btn-sm" onclick="checkEcho()">Check for echo</button>
+          </div>
+        </div>
+        <div id="echo-box"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="page-footer">Smart Traffic Safety Companion &middot; demo client</footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
