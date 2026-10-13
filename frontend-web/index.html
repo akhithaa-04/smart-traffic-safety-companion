@@ -44,7 +44,12 @@
   </header>
 
   <p class="auth-hint">Demo accounts: asha@example.com &middot; vikram@example.com &middot; citizen@example.com — password123</p>
-
+  <div id="register-view" class="auth-inline" style="padding: 8px 24px; flex-wrap: wrap;">
+  <input id="reg-name" placeholder="your name">
+  <input id="reg-email" placeholder="email">
+  <input id="reg-password" type="password" placeholder="choose a password">
+  <button class="btn-accent" onclick="register()">Register</button>
+</div>
   <main>
 
     <!-- HERO: journey start + reminder, the core interaction -->
