@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = "https://smart-traffic-safety-companion.onrender.com/api";
 
 // Demo coordinates near Jubilee Hills, Hyderabad - matches seeded report data
 const DEMO_LAT = 17.4475;
@@ -31,17 +31,41 @@ async function login() {
     alert(e.message);
   }
 }
-
+async function register() {
+  const name = document.getElementById("reg-name").value.trim();
+  const email = document.getElementById("reg-email").value.trim();
+  const password = document.getElementById("reg-password").value;
+  if (!name || !email || !password) {
+    alert("Please fill in name, email and password.");
+    return;
+  }
+  try {
+    await api("/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ name, email, password }),
+    });
+    // log in straight away with the new account
+    currentUser = await api("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+    renderUser();
+  } catch (e) {
+    alert(e.message);
+  }
+}
 function logout() {
   currentUser = null;
   activeJourneyId = null;
   document.getElementById("logged-out-view").classList.remove("hidden");
   document.getElementById("logged-in-view").classList.add("hidden");
+  document.getElementById("register-view").classList.remove("hidden")
 }
 
 function renderUser() {
   document.getElementById("logged-out-view").classList.add("hidden");
   document.getElementById("logged-in-view").classList.remove("hidden");
+  document.getElementById("register-view").classList.add("hidden");
   document.getElementById("current-user-name").textContent = currentUser.name;
   document.getElementById("current-user-points").textContent = currentUser.points;
   document.getElementById("current-user-streak").textContent = currentUser.safeStartStreak;
